@@ -1,5 +1,5 @@
 # Sepia
-Sepia(乌贼)是一款集PoC批量验证和攻击的内部安全团队工具，能满足内部团队在漏洞爆发时快速对资产状况进行查证的需求。
+Sepia(乌贼)是一款集PoC批量验证和攻击渗透测试工具，能满足漏洞爆发时快速对资产状况进行查证的需求。
 
 <img src="https://ooo.0o0.ooo/2017/08/25/599fbbaf3366a.png" width="600" height="400">
 
@@ -32,5 +32,5 @@ Sepia去掉了POC-T导出到文件的功能，引入`prettytable`直接将结果
 
 ## 后话
 
-Sepia还处于开发版本阶段，有任何问题烦请发邮件至[s4kur4s4kur4@gmail.com](mailto:s4kur4s4kur4@gmail.com?Subject=Hello%20S4kur4)。
+Sepia还处于开发版本阶段，有任何问题烦请发邮件至：[s4kur4s4kur4@gmail.com](mailto:s4kur4s4kur4@gmail.com?Subject=Hello%20S4kur4)。
 
