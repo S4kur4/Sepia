@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-import argparse #argparse模块代替过时的optparse
+import argparse
 import sys
-from lib.core.settings import VERSION #setting文件定义了框架基本信息，这里导入框架版本
+from lib.core.settings import VERSION
 
 
 def cmdLineParser():
-    parser = argparse.ArgumentParser(description='Example: python sepia.py -s dns_zonetransfer --zoomeye "port:8080"', add_help=False)
+    parser = argparse.ArgumentParser(description='Example: python sepia.py -s s2045-rce -baidu "inurl:login.action"', add_help=False)
 
     #第一项optional_arguments，基础相关项
     optional_arguments = parser.add_argument_group('Options')
