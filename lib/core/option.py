@@ -73,8 +73,8 @@ def checkSearch(args):
             print scriptsheet
             dataToStdout(msg)
         else:
-            msg = 'No results found\n'
-            dataToStdout(msg)
+            msg = 'No results found'
+            logger.error(msg)
         logger.info('System exit')
         sys.exit()
 
