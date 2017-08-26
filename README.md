@@ -6,13 +6,13 @@ Sepia(乌贼)是一款集PoC批量验证和漏洞攻击的渗透测试工具，�
 <img src="https://ooo.0o0.ooo/2017/08/25/599fbbaf3366a.png" width="600" height="400">
 
 ## 一些说明
-Sepia是在POC-T的基础上做了精简修改而成的，因此首先要感谢@cdxy的POC-T项目：[POC-T](https://github.com/Xyntax/POC-T)。
+Sepia是在POC-T的基础上做了精简、改进而成的，因此首先要感谢@cdxy的POC-T项目：[POC-T](https://github.com/Xyntax/POC-T)。
 
 与POC-T相比，Sepia有以下一些变化：
 
 **1. 数据搜集方式的变化**
 
-去掉了Google dork、Shodan dork，只保留了Zoomeye dork，增加了Baidu URL爬虫。
+去掉了Google dork、Shodan dork，只保留了Zoomeye dork，增加了Baidu dork(URL爬虫)。
 
 **2. 增加了URL正则抓取定制功能**
 
