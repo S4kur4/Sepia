@@ -1,7 +1,7 @@
 # Sepia
 [![Python 2.7](https://img.shields.io/badge/python-2.7-red.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://github.com/S4kur4/Sepia/blob/master/LICENSE)
 
-Sepia(乌贼)是一款集PoC批量验证和攻击渗透测试工具，能满足漏洞爆发时快速对资产状况进行查证的需求。
+Sepia(乌贼)是一款集PoC批量验证和漏洞攻击的渗透测试工具，能满足漏洞爆发时快速对资产状况进行查证的需求。
 
 <img src="https://ooo.0o0.ooo/2017/08/25/599fbbaf3366a.png" width="600" height="400">
 
