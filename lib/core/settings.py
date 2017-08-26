@@ -5,8 +5,8 @@
 import os
 import subprocess
 
-VERSION = '1.0.0'
-PROJECT = "POC-T"
+VERSION = '1.1.0'
+PROJECT = "Sepia"
 PLATFORM = os.name
 IS_WIN = subprocess.mswindows #判断当前环境是否为Windows
 

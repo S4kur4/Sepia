@@ -2,6 +2,7 @@
 #-*- coding:utf-8 -*-
 
 import os
+import re
 import glob #文件路径查找
 import sys
 from lib.core.data import conf, paths, th, logger
@@ -14,6 +15,7 @@ from thirdparty.prettytable.prettytable import PrettyTable
 
 def initOptions(args): #初始化操作
     checkShow(args) #检查是否要求列出脚本
+    checkSearch(args) #检查是否在搜索脚本
     EngineRegister(args) #检查配置扫描引擎，注册互斥量，扫描线程数
     ScriptRegister(args) #检查配置脚本项参数
     TargetRegister(args) #检查配置扫描目标信息
@@ -26,18 +28,53 @@ def initOptions(args): #初始化操作
 def checkShow(args):
     input_path = args.script_name
     list_scripts = args.list_scripts
+    search_script = args.search_script
+    if list_scripts and (input_path or search_script):
+        msg = 'Cannot specify or search script when you use [--list]'
+        sys.exit(logger.error(msg))
     scriptsheet = PrettyTable(["Script"])
     scriptsheet.align["Script"] = "l"
     scriptsheet.padding_width = 1
-    if list_scripts and not input_path:
+    if list_scripts:
         module_name_list = glob.glob(os.path.join(paths.SCRIPT_PATH, '*.py')) #获取script文件夹下所有.py文件列表
         msg = 'Total:{}\n'.format(str(len(module_name_list) - 1)) #除去__init__.py算出total总数
         for each in module_name_list:
-            _str = os.path.split(each)[1] #去掉每个py文件的路径名输出
-            if _str != '__init__.py':
+            _str = os.path.split(each)[1][0:-3]
+            if _str != '__init__':
                 scriptsheet.add_row([_str])
         print scriptsheet
         dataToStdout(msg)
+        logger.info('System exit')
+        sys.exit()
+
+def checkSearch(args):
+    input_path = args.script_name
+    list_scripts = args.list_scripts
+    search_script = args.search_script
+    if search_script and (input_path or list_scripts):
+        msg = 'Cannot specify or list script when you use [--search]'
+        sys.exit(logger.error(msg))
+    if search_script:
+        if re.findall(r'[^\w\d\-_ ]', search_script):
+            msg = 'The script name you provided is incorrect'
+            sys.exit(logger.error(msg))
+        scriptsheet = PrettyTable(["Script"])
+        scriptsheet.align["Script"] = "l"
+        scriptsheet.padding_width = 1
+        length = 0
+        module_name_list = glob.glob(os.path.join(paths.SCRIPT_PATH, '*.py'))
+        for each in module_name_list:
+            _str = os.path.split(each)[1][0:-3]
+            if _str != '__init__' and re.findall(search_script, _str):
+                scriptsheet.add_row([_str])
+                length = length + 1
+        if length > 0:
+            msg = 'Total:{}\n'.format(length)
+            print scriptsheet
+            dataToStdout(msg)
+        else:
+            msg = 'No results found\n'
+            dataToStdout(msg)
         logger.info('System exit')
         sys.exit()
 
@@ -71,41 +108,40 @@ def EngineRegister(args):
 def ScriptRegister(args):
     input_path = args.script_name
     list_scripts = args.list_scripts
+    search_script = args.search_script
     # handle input: nothing
-    if not input_path and not list_scripts: #如果没有指定脚本或没有列出脚本就提醒并退出
-        msg = 'Use -s to load script. Example: [-s spider] or [-s ./script/spider.py]'
-        sys.exit(logger.error(msg))
-    if input_path and list_scripts: #如果指定脚本和列出脚本就提醒并退出
-        msg = 'The script can not be specified when you use [--list]'
+    if input_path and (search_script or list_scripts):
+        msg = 'Cannot specify script when you use [--list] or [--search]'
         sys.exit(logger.error(msg))
     # handle input: "-s ./script/spider.py"
-    if os.path.split(input_path)[0]: #如果指定了脚本获取给出脚本的文件夹路径
-        if os.path.exists(input_path): #判断是否存在该脚本文件
-            if os.path.isfile(input_path): #判断是否是文件
-                if input_path.endswith('.py'): #判断是否是Python文件
-                    conf.MODULE_NAME = os.path.split(input_path)[-1] #得到脚本文件名.py
-                    conf.MODULE_FILE_PATH = os.path.abspath(input_path) #得到脚本文件的绝对路径
+    if input_path:
+        if os.path.split(input_path)[0]: #如果指定了脚本获取给出脚本的文件夹路径
+            if os.path.exists(input_path): #判断是否存在该脚本文件
+                if os.path.isfile(input_path): #判断是否是文件
+                    if input_path.endswith('.py'): #判断是否是Python文件
+                        conf.MODULE_NAME = os.path.split(input_path)[-1] #得到脚本文件名.py
+                        conf.MODULE_FILE_PATH = os.path.abspath(input_path) #得到脚本文件的绝对路径
+                    else:
+                        msg = '[%s] not a Python file. Example: [-s spider] or [-s ./script/spider.py]' % input_path
+                        sys.exit(logger.error(msg))
                 else:
-                    msg = '[%s] not a Python file. Example: [-s spider] or [-s ./script/spider.py]' % input_path
+                    msg = '[%s] not a file. Example: [-s spider] or [-s ./script/spider.py]' % input_path
                     sys.exit(logger.error(msg))
             else:
-                msg = '[%s] not a file. Example: [-s spider] or [-s ./script/spider.py]' % input_path
+                msg = '[%s] not found. Example: [-s spider] or [-s ./script/spider.py]' % input_path
                 sys.exit(logger.error(msg))
-        else:
-            msg = '[%s] not found. Example: [-s spider] or [-s ./script/spider.py]' % input_path
-            sys.exit(logger.error(msg))
 
     # handle input: "-s spider"  "-s spider.py"
-    else:
-        if not input_path.endswith('.py'): #如果指定的脚本文件不以.py结尾就加一个.py
-            input_path += '.py'
-        _path = os.path.abspath(os.path.join(paths.SCRIPT_PATH, input_path))
-        if os.path.isfile(_path): #如果这个脚本文件在脚本库中找不到就提醒并退出
-            conf.MODULE_NAME = input_path
-            conf.MODULE_FILE_PATH = os.path.abspath(_path)
         else:
-            msg = 'Script [%s] not exist. Use [--list] to view all available scripts in ./script/' % input_path
-            sys.exit(logger.error(msg))
+            if not input_path.endswith('.py'): #如果指定的脚本文件不以.py结尾就加一个.py
+                input_path += '.py'
+            _path = os.path.abspath(os.path.join(paths.SCRIPT_PATH, input_path))
+            if os.path.isfile(_path): #如果这个脚本文件在脚本库中找不到就提醒并退出
+                conf.MODULE_NAME = input_path
+                conf.MODULE_FILE_PATH = os.path.abspath(_path)
+            else:
+                msg = 'Script [%s] not exist. Use [--list] to view all available scripts in ./script/' % input_path
+                sys.exit(logger.error(msg))
 
 
 def TargetRegister(args):
