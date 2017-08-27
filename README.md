@@ -34,7 +34,7 @@ Sepia去掉了POC-T导出到文件的功能，引入`prettytable`直接将结果
 
 ## 参数说明
 
-<https://github.com/S4kur4/Sepia/wiki/%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E>
+<https://github.com/S4kur4/Sepia/wiki/参数说明>
 
 ## 后话
 
