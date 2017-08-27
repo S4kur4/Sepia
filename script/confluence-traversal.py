@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 #author = i@cdxy.me
-
+_type = 'TRAVERSAL'
 """
 Atlassian Confluence config file read POC [CVE-2015-8399]
 

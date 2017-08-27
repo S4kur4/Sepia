@@ -5,13 +5,15 @@
 import os
 import subprocess
 
-VERSION = '1.1.0'
+VERSION = '1.2.0'
 PROJECT = "Sepia"
 PLATFORM = os.name
 IS_WIN = subprocess.mswindows #判断当前环境是否为Windows
 
 # essential methods/functions in custom scripts/PoC (such as function poc())
 ESSENTIAL_MODULE_METHODS = ['poc']
+# optional methods/functions in custom scripts/PoC (such as function poc())
+OPTIONAL_MOUDLE_METHODS = ['exp']
 # Encoding used for Unicode data
 UNICODE_ENCODING = "utf-8"
 # String representation for NULL value

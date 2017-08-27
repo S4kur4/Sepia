@@ -23,7 +23,7 @@ def loadModule():
         th.module_obj = imp.load_module("_", fp, pathname, description) #加载找到的模块
         for each in ESSENTIAL_MODULE_METHODS: #ESSENTIAL_MODULE_METHODS=['poc']
             if not hasattr(th.module_obj, each): #如果模块中不存在'poc'方法就提醒并退出
-                errorMsg = "Can't find essential method:'%s()' in current script，Please modify your script/PoC."
+                errorMsg = "Can't find essential method:'%s()' in current script，Please modify your script/PoC".format(each)
                 sys.exit(logger.error(errorMsg))
     except ImportError, e: #模块加载失败就抛出异常
         errorMsg = "Your current scipt [%s.py] caused this exception\n%s\n%s" \

@@ -4,14 +4,16 @@
 import os
 import re
 import sys
+import imp
 import time
 import logging
 from lib.core.data import *
 from lib.core.exception import *
+from lib.utils.expfunctions import *
 from lib.core.log import LOGGER_HANDLER
-from lib.core.settings import BANNER, UNICODE_ENCODING, NULL, INVALID_UNICODE_CHAR_FORMAT
+from lib.core.settings import BANNER, UNICODE_ENCODING, NULL, INVALID_UNICODE_CHAR_FORMAT, OPTIONAL_MOUDLE_METHODS
 from lib.core.convert import stdoutencode
-from lib.core.enums import EXIT_STATUS
+from lib.core.enums import EXIT_STATUS, TARGET_MODE_STATUS
 from thirdparty.termcolor.termcolor import colored
 from thirdparty.odict.odict import OrderedDict
 from thirdparty.prettytable.prettytable import PrettyTable
@@ -202,9 +204,15 @@ def systemQuit(status=EXIT_STATUS.SYSETM_EXIT):
     if status == EXIT_STATUS.USER_QUIT and "is_continue" not in th:
         logger.info('User quit')
         logger.error('System exit')
+    elif status == EXIT_STATUS.USER_QUIT and "exploit_mode" in th:
+        if th.exploit_mode:
+            logger.error('Exit exploit mode')
+            logger.info('System exit')
     else:
         if status == EXIT_STATUS.SYSETM_EXIT:
             printResult()
+            if conf.TARGET_MODE == TARGET_MODE_STATUS.SINGLE: #如果是扫描单个目标就启动attack
+                attack()
             logger.info('System exit')
         elif status == EXIT_STATUS.USER_QUIT and th.is_continue:
             dataToStdout('\n')
@@ -229,6 +237,25 @@ def printResult():
     msg = '{} found | {} scanned in {} second'.format(th.found_count, th.scan_count, str(time.time()-th.start_time)[0:4])
     out = '{}\n'.format(msg)
     dataToStdout(out)
+
+def attack():
+    if len(targetlist) and targetlist[0][1]:
+        for each in OPTIONAL_MOUDLE_METHODS: #OPTIONAL_MOUDLE_METHODS=['exp']
+            if not hasattr(th.module_obj, each): #如果模块中不存在'exp'方法就提醒并退出
+                msg = "The script does not contain any exploit module"
+                logger.warning(msg)
+                sys.exit(logger.info('System exit'))
+            else:
+                try:
+                    expfunc = th.module_obj._type.lower() #加载攻击模块
+                    msg = "Enter exploit mode"
+                    logger.info(msg)
+                    th.exploit_mode = True
+                    eval(expfunc)(th.module_obj.exp, conf.SINGLE_TARGET_STR)
+                except AttributeError:
+                    logger.warning("The script does not specify an attack type.Exited the attack mode")
+                    sys.exit(logger.info('System exit'))
+                
 
 def getFileItems(filename, commentPrefix='#', unicode_=True, lowercase=False, unique=False):
     """
