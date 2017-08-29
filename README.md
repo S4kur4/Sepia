@@ -32,9 +32,10 @@ Sepia去掉了POC-T导出到文件的功能，引入`prettytable`直接将结果
 
 脚本这一块目前仍然依赖于POC-T的脚本库，由于后期Sepia会从脚本层面增加攻击功能，等Sepia制定完善了脚本编写文档后会逐渐丰富自己的脚本库。
 
-## 参数说明
+## Wiki
 
-<https://github.com/S4kur4/Sepia/wiki/参数说明>
+* [参数说明](https://github.com/S4kur4/Sepia/wiki/参数说明)
+* [使用举例](https://github.com/S4kur4/Sepia/wiki/使用举例)
 
 ## 后话
 
