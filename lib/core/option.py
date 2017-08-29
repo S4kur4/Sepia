@@ -101,7 +101,7 @@ def EngineRegister(args):
     if 0 < thread_num < 101:
         th.THREADS_NUM = conf.THREADS_NUM = thread_num
     else:
-        msg = 'Invalid input in [-t], range: 1 to 100'
+        msg = 'Invalid input in [--number], range: 1 to 100'
         sys.exit(logger.error(msg))
 
 
@@ -146,7 +146,7 @@ def ScriptRegister(args):
 
 def TargetRegister(args):
     input_file = args.target_file
-    input_single = args.target_url
+    input_single = args.target_urlip
     input_cidr = args.target_cidr
     api_zoomeye = args.zoomeye_dork
     api_baidu = args.baidu_dork
@@ -179,7 +179,7 @@ def TargetRegister(args):
         conf.API_MODE = API_MODE_NAME.BAIDU #使用Baidu
         conf.API_DORK = api_baidu
 
-    msg = 'Please load targets with [-u|-f|-c] or use API with [-zoomeye|-baidu]'
+    msg = 'Please load targets with [-t|-f|-c] or use API with [-zoomeye|-baidu]'
     r = Register(mutex=True, mutex_errmsg=msg)
     r.add(__file, input_file)
     r.add(__cidr, input_cidr)
