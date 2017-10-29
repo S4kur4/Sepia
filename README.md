@@ -32,9 +32,12 @@ Sepia去掉了POC-T导出到文件的功能，引入`prettytable`直接将结果
 
 * [参数说明](https://github.com/S4kur4/Sepia/wiki/参数说明)
 * [使用举例](https://github.com/S4kur4/Sepia/wiki/使用举例)
+* [脚本编写规则](https://github.com/S4kur4/Sepia/wiki/脚本编写规则)
+* [脚本库](https://github.com/S4kur4/Sepia/wiki/脚本库)
 
 ## 后话
 
 Sepia还处于开发版本阶段，有任何问题烦请发邮件至：[s4kur4s4kur4@gmail.com](mailto:s4kur4s4kur4@gmail.com?Subject=Hello%20S4kur4)。
+
 2017年10月29日更新：由于ZoomEye方面一直处于升级更新状态，近期本来想完善Sepia的ZoomEye Dork代码，但ZoomEye的API迟迟未开放导致不能继续完善。暂时我先慢慢完扩充脚本库吧。
 
