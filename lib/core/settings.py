@@ -5,7 +5,7 @@
 import os
 import subprocess
 
-VERSION = '1.2.2'
+VERSION = '1.2.2#dev'
 PROJECT = "Sepia"
 PLATFORM = os.name
 IS_WIN = subprocess.mswindows #判断当前环境是否为Windows
@@ -26,7 +26,7 @@ GIT_REPOSITORY = "git://github.com/Xyntax/POC-T.git"
 GIT_PAGE = "https://github.com/Xyntax/POC-T"
 
 BANNER = """\033[01;33m                _      
- ___  ___ _ __\033[01;31m(¯ω¯)\033[01;33m __ _  \033[01;37m{\033[01;33m%s\033[01;37m#dev}\033[01;33m
+ ___  ___ _ __\033[01;31m(¯ω¯)\033[01;33m __ _  \033[01;37m{\033[01;33m%s\033[01;37m}\033[01;33m
 / __|/ _ \ '_ \| |/ _` |
 \__ \  __/ |_) | | (_| |
 |___/\___| .__/|_|\__,_|  \033[07;33;41mPoC|Exploit\033[0m\033[01;33m

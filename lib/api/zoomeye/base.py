@@ -44,9 +44,8 @@ class ZoomEye(object):
             sys.exit(logger.error(msg))
 
     def get_token(self):
-        # Please access https://www.zoomeye.org/api/doc#login
-        data = '{{"username": "{}", "password": "{}"}}'.format(self.username,
-                                                               self.password)
+        # Please access https://www.zoomeye.org/api/doc#overview
+        data = '{{"username": "{}", "password": "{}"}}'.format(self.username,self.password)
         resp = requests.post(self.zoomeye_login_api, data=data)
         if resp and resp.status_code == 200 and 'access_token' in resp.json():
             self.token = resp.json().get('access_token')

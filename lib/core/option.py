@@ -145,12 +145,16 @@ def ScriptRegister(args):
 
 
 def TargetRegister(args):
+    input_path = args.script_name
     input_file = args.target_file
     input_single = args.target_urlip
     input_cidr = args.target_cidr
     api_zoomeye = args.zoomeye_dork
     api_baidu = args.baidu_dork
 
+    if not input_path:
+        msg = 'Please specify a script with [-s]'
+        sys.exit(logger.error(msg))
     def __file(): #配置批量扫描文件路径
         if not os.path.isfile(input_file):
             msg = 'TargetFile not found: %s' % input_file

@@ -12,7 +12,7 @@ def cmdLineParser():
     #第一项optional_arguments，基础相关项
     optional_arguments = parser.add_argument_group('Options')
     optional_arguments.add_argument('-h', '--help', action='help', help='Show help message and exit')
-    optional_arguments.add_argument('-v', '--version', action='version', version=VERSION, help="Show program's version number and exit")
+    optional_arguments.add_argument('-v', '--version', action='version', version='Version:'+VERSION, help="Show program's version number and exit")
 
     #第二项engine_mode，扫描引擎配置项
     engine_mode = parser.add_argument_group('Engine')

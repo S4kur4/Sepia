@@ -8,7 +8,6 @@ _type = 'RCE'
 import random
 import time
 
-
 def poc(str):
     time.sleep(3)
     if random.randint(1, 10) > 5:
@@ -16,4 +15,4 @@ def poc(str):
     return False
 
 def exp(url, command):
-	print 'exp'
+	print "Exploit moudle test."
