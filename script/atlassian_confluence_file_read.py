@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
-_type = 'TRAVERSAL'
+_type = 'FR'
 """
 Atlassian Confluence config file read POC [CVE-2015-8399]
 
@@ -25,5 +25,5 @@ def poc(url):
     except Exception, e:
         return False
 
-def exp():
+def exp(url):
     pass

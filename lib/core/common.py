@@ -42,7 +42,7 @@ def setPaths():#设置POC-T的文件路径和目录
         pass
     else:
         #如果toolkit.conf、pass100.txt、pass1000.txt、user-agent.txt四个缺失任何一个，就抛出异常
-        msg = 'Some files missing, it may cause an issue.'
+        msg = 'Some files missing, it may cause an issue'
         raise ToolkitMissingPrivileges(msg)
 
 def checkFile(filename):
@@ -248,15 +248,15 @@ def attack():
             else:
                 try:
                     expfunc = th.module_obj._type.lower() #加载攻击模块
-                    msg = "Go to exploit mode"
+                    msg = "Go to exploit mode..."
                     logger.info(msg)
                     th.exploit_mode = True
                     eval(expfunc)(th.module_obj.exp, conf.SINGLE_TARGET_STR)
                 except AttributeError:
-                    logger.warning("The script didn't specified an exploit type.Exit exploit mode")
+                    logger.warning("The script didn't specified an exploit type. Exit exploit mode")
                     sys.exit(logger.info('System exit'))
                 except NameError:
-                    logger.warning("Sepia does not support exploit method '%s'.Exit exploit mode" % th.module_obj._type.lower())
+                    logger.warning("Sepia does not support exploit method '%s'. Exit exploit mode" % th.module_obj._type.lower())
                     sys.exit(logger.info('System exit'))
                 
 
