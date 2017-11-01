@@ -256,7 +256,7 @@ def attack():
                     logger.warning("The script didn't specified an exploit type. Exit exploit mode")
                     sys.exit(logger.info('System exit'))
                 except NameError:
-                    logger.warning("Sepia does not support exploit method '%s'. Exit exploit mode" % th.module_obj._type.lower())
+                    logger.warning("Sepia does not support vulnerability type '%s'. Exit exploit mode" % th.module_obj._type)
                     sys.exit(logger.info('System exit'))
                 
 
