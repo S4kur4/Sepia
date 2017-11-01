@@ -14,5 +14,5 @@ def poc(str):
         return True
     return False
 
-def exp(str):
+def exp(str, command):
 	print "Exploit moudle test."
