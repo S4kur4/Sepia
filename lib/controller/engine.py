@@ -42,6 +42,9 @@ def scan():
         try:
             #POC在执行时报错如果不被处理，线程框架会停止并退出
             status = th.module_obj.poc(payload) #执行脚本，会返回状态True或者False
+            if th.thread_mode:
+                th.output_lock.acquire()
+                time.sleep(0.05)
             resultHandler(status, payload)
         except Exception:
             th.errmsg = traceback.format_exc()
@@ -82,6 +85,7 @@ def resultHandler(status, payload):
     if not status or status is POC_RESULT_STATUS.FAIL:
         targetlist.append([payload, status])
         logger.error(falsemsg)
+        if th.thread_mode: th.output_lock.release()
         return
     elif status is POC_RESULT_STATUS.RETRAY:
         changeScanCount(-1)
@@ -90,6 +94,7 @@ def resultHandler(status, payload):
     elif status is True or status is POC_RESULT_STATUS.SUCCESS:
         targetlist.append([payload, status])
         logger.success(truemsg)
+        if th.thread_mode: th.output_lock.release()
         changeFoundCount(1)
     else:
         pass
@@ -97,6 +102,7 @@ def resultHandler(status, payload):
 
 
 def setThreadLock():
+    th.output_lock = threading.Lock()
     if th.thread_mode:
         th.found_count_lock = threading.Lock()
         th.scan_count_lock = threading.Lock()
